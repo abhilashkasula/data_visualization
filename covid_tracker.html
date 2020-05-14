@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+      const data = [
+        {
+          district: 'Adilabad',
+          active: 6,
+          confirmed: 21,
+          deceased: 0,
+        },
+        {
+          district: 'Bhadradri Kothagudem',
+          notes: '',
+          active: 0,
+          confirmed: 4,
+          deceased: 0,
+        },
+        {
+          district: 'Hyderabad',
+          notes: '',
+          active: 504,
+          confirmed: 827,
+          deceased: 23,
+        },
+        {
+          district: 'Jagtial',
+          notes: '',
+          active: 2,
+          confirmed: 4,
+          deceased: 0,
+        },
+        {
+          district: 'Jangaon',
+          notes: '',
+          active: 2,
+          confirmed: 3,
+          deceased: 0,
+        },
+        {
+          district: 'Jayashankar Bhupalapally',
+          notes: '',
+          active: 3,
+          confirmed: 3,
+          deceased: 0,
+        },
+        {
+          district: 'Jogulamba Gadwal',
+          notes: '',
+          active: 19,
+          confirmed: 45,
+          deceased: 1,
+        },
+        {
+          district: 'Kamareddy',
+          notes: '',
+          active: 4,
+          confirmed: 12,
+          deceased: 0,
+        },
+        {
+          district: 'Karimnagar',
+          notes: '',
+          active: 3,
+          confirmed: 19,
+          deceased: 0,
+        },
+        {
+          district: 'Khammam',
+          notes: '',
+          active: 5,
+          confirmed: 8,
+          deceased: 0,
+        },
+        {
+          district: 'Komaram Bheem',
+          notes: '',
+          active: 6,
+          confirmed: 7,
+          deceased: 0,
+        },
+        {
+          district: 'Mahabubabad',
+          notes: '',
+          active: 0,
+          confirmed: 1,
+          deceased: 0,
+        },
+        {
+          district: 'Mahabubnagar',
+          notes: '',
+          active: 3,
+          confirmed: 11,
+          deceased: 0,
+        },
+        {
+          district: 'Mancherial',
+          notes: '',
+          active: 0,
+          confirmed: 1,
+          deceased: 1,
+        },
+        {
+          district: 'Medak',
+          notes: '',
+          active: 1,
+          confirmed: 5,
+          deceased: 0,
+        },
+        {
+          district: 'Medchal Malkajgiri',
+          notes: '',
+          active: 12,
+          confirmed: 22,
+          deceased: 1,
+        },
+        {
+          district: 'Mulugu',
+          notes: '',
+          active: 0,
+          confirmed: 2,
+          deceased: 0,
+        },
+        {
+          district: 'Nagarkurnool',
+          notes: '',
+          active: 0,
+          confirmed: 2,
+          deceased: 0,
+        },
+        {
+          district: 'Nalgonda',
+          notes: '',
+          active: 5,
+          confirmed: 17,
+          deceased: 0,
+        },
+        {
+          district: 'Narayanpet',
+          notes: '',
+          active: 0,
+          confirmed: 1,
+          deceased: 1,
+        },
+        {
+          district: 'Nirmal',
+          notes: '',
+          active: 7,
+          confirmed: 20,
+          deceased: 0,
+        },
+        {
+          district: 'Nizamabad',
+          notes: '',
+          active: 31,
+          confirmed: 61,
+          deceased: 0,
+        },
+        {
+          district: 'Peddapalli',
+          notes: '',
+          active: 1,
+          confirmed: 2,
+          deceased: 0,
+        },
+        {
+          district: 'Rajanna Sircilla',
+          notes: '',
+          active: 1,
+          confirmed: 3,
+          deceased: 0,
+        },
+        {
+          district: 'Ranga Reddy',
+          notes: '',
+          active: 17,
+          confirmed: 36,
+          deceased: 2,
+        },
+        {
+          district: 'Sangareddy',
+          notes: '',
+          active: 1,
+          confirmed: 7,
+          deceased: 0,
+        },
+        {
+          district: 'Siddipet',
+          notes: '',
+          active: 0,
+          confirmed: 1,
+          deceased: 0,
+        },
+        {
+          district: 'Suryapet',
+          notes: '',
+          active: 59,
+          confirmed: 83,
+          deceased: 0,
+        },
+        {
+          district: 'Vikarabad',
+          notes: '',
+          active: 22,
+          confirmed: 37,
+          deceased: 1,
+        },
+        {
+          district: 'Wanaparthy',
+          notes: '',
+          active: 0,
+          confirmed: 0,
+          deceased: 0,
+        },
+        {
+          district: 'Warangal Rural',
+          notes: '',
+          active: 0,
+          confirmed: 0,
+          deceased: 0,
+        },
+        {
+          district: 'Warangal Urban',
+          notes: '',
+          active: 4,
+          confirmed: 27,
+          deceased: 0,
+        },
+        {
+          district: 'Yadadri Bhuvanagiri',
+          notes: '',
+          active: 0,
+          confirmed: 0,
+          deceased: 0,
+        },
+        {
+          district: 'Unknown',
+          notes: '',
+          active: -359,
+          confirmed: 40,
+          deceased: 4,
+        },
+      ];
+    </script>
+    <style>
+      .bar {
+        fill: cornflowerblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        color: black;
+        font-weight: 900;
+        font-size: 2em;
+        text-align: center;
+        font-family: sans-serif;
+      "
+    >
+      Telangana Covid Tracker
+    </div>
+    <div id="graph"></div>
+    <script>
+      const height = 600;
+      const width = 1200;
+      const svg = d3
+        .select('#graph')
+        .append('svg')
+        .attr('height', height + 200)
+        .attr('width', width + 200);
+
+      const g = svg.append('g').attr('transform', 'translate(100, 30)');
+
+      const xScale = d3
+        .scaleBand()
+        .domain(data.map((d) => `${d.district} (${d.active})`))
+        .range([0, width])
+        .padding(0.1);
+
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(data.map((d) => d.active))])
+        .range([height, 0]);
+
+      g.append('g')
+        .call(d3.axisLeft(yScale).ticks(20))
+        .append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('x', -60)
+        .attr('y', -60)
+        .attr('stroke', 'black')
+        .text('Cases');
+
+      const xAxis = g
+        .append('g')
+        .attr('transform', `translate(0, ${height})`)
+        .call(d3.axisBottom(xScale));
+      xAxis
+        .selectAll('text')
+        .attr('dx', '-0.8em')
+        .attr('dy', '-0.0em')
+        .attr('text-anchor', 'end')
+        .attr('transform', 'rotate(-45)');
+      xAxis
+        .append('text')
+        .attr('x', width / 2)
+        .attr('y', 90)
+        .attr('stroke', 'black')
+        .text('Districts');
+
+      const bars = g
+        .selectAll('.bar')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', (d) => xScale(`${d.district} (${d.active})`))
+        .attr('y', (d) => yScale(d.active))
+        .attr('width', xScale.bandwidth())
+        .attr('height', (d) => height - yScale(d.active));
+    </script>
+  </body>
+</html>
