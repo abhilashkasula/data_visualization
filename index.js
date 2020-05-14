@@ -68,7 +68,6 @@ const main = function () {
   })
     .then((res) => res.json())
     .then(parse)
-    .then((data) => console.log(data) || data)
     .then(drawGraph);
   setTimeout(main, 1800000);
 };
