@@ -98,35 +98,30 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('font-weight', 100)
     .attr('font-family', 'sans-serif');
 
-  g.append('text')
-    .attr('x', width - 95)
-    .attr('y', 10)
-    .attr('stroke', 'black')
-    .text(
-      `Total Active Cases: ${data.reduce((total, d) => total + d.active, 0)}`
-    );
+  const texts = [
+    'Total Active Cases',
+    'Total Confirmed Cases',
+    'Total Deceased Cases',
+  ];
 
-  g.append('text')
-    .attr('x', width - 95)
-    .attr('y', 30)
-    .attr('stroke', 'black')
-    .text(
-      `Total Confirmed Cases: ${data.reduce(
-        (total, d) => total + d.confirmed,
-        0
-      )}`
-    );
+  const values = data.reduce(
+    (val, d) => {
+      val[0] += d.active;
+      val[1] += d.confirmed;
+      val[2] += d.deceased;
+      return val;
+    },
+    [0, 0, 0]
+  );
 
-  g.append('text')
+  g.selectAll('.info')
+    .data(texts)
+    .enter()
+    .append('text')
     .attr('x', width - 95)
-    .attr('y', 50)
+    .attr('y', (d, i) => i * 20 + 10)
     .attr('stroke', 'black')
-    .text(
-      `Total Deceased Cases: ${data.reduce(
-        (total, d) => total + d.deceased,
-        0
-      )}`
-    );
+    .text((d, i) => `${d}: ${values[i]}`);
 };
 
 const drawSelect = function (data) {
