@@ -25,7 +25,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
 
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data.map((d) => d.active)) + 100])
+    .domain([0, d3.max(data.map((d) => d.active)) + 50])
     .range([height, 0]);
 
   g.append('g')
@@ -53,6 +53,28 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('y', 90)
     .attr('stroke', 'black')
     .text('Districts');
+
+  g.selectAll('.x-line')
+    .data(yScale.ticks(20))
+    .enter()
+    .append('line')
+    .attr('class', 'line x-line')
+    .attr('x1', 0)
+    .attr('y1', (d) => yScale(d))
+    .attr('x2', width - 100)
+    .attr('y2', (d) => yScale(d));
+
+  console.log(data.length, data);
+
+  g.selectAll('.y-line')
+    .data(data)
+    .enter()
+    .append('line')
+    .attr('class', 'line y-line')
+    .attr('x1', (d) => xScale(d.district) + 14)
+    .attr('y1', 0)
+    .attr('x2', (d) => xScale(d.district) + 14)
+    .attr('y2', height);
 
   g.selectAll('.bar')
     .data(data)
