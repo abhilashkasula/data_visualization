@@ -74,16 +74,20 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('width', xScale.bandwidth())
     .attr('height', (d) => height - yScale(d.active));
 
+  console.log(xScale.bandwidth());
+
   g.selectAll('.value')
     .data(data)
     .enter()
     .append('text')
     .text((d) => d.active)
     .attr('text-anchor', 'middle')
-    .attr('x', (d) => xScale(d.district) + 14)
+    .attr('x', (d) => xScale(d.district) + xScale.bandwidth() / 2)
     .attr('y', (d) => yScale(d.active) - 1)
-    .attr('font-size', 13)
-    .attr('stroke', 'black');
+    .attr('font-size', 12)
+    .attr('font-weight', '100')
+    .attr('fill', 'black')
+    .attr('font-family', 'sans-serif');
 
   g.append('text')
     .attr('x', width - 100)
