@@ -84,8 +84,6 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('width', xScale.bandwidth())
     .attr('height', (d) => height - yScale(d.active));
 
-  console.log(xScale.bandwidth());
-
   g.selectAll('.value')
     .data(data)
     .enter()
@@ -132,7 +130,6 @@ const drawGraph = function (statesData, state = 'Telangana') {
 };
 
 const drawSelect = function (data) {
-  console.log(data);
   const select = document.querySelector('#selector');
   const options = data.map((state) => {
     let value = `"${state.state}"`;
@@ -146,7 +143,6 @@ const drawSelect = function (data) {
 };
 
 const parse = (data, state = 'Telangana') => {
-  console.log(data);
   const stateData = data.find((d) => d.state === state);
   return stateData.districtData;
 };
@@ -155,7 +151,6 @@ const addListeners = function () {
   const select = document.querySelector('#selector');
   select.addEventListener('change', () => {
     const val = select.options[select.selectedIndex].value;
-    console.log(val);
     drawGraph(data, val.trim());
   });
 };
