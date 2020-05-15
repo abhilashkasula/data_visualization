@@ -15,7 +15,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
 
   const data = parse(statesData, state);
 
-  const g = svg.append('g').attr('transform', 'translate(100, 30)');
+  const g = svg.append('g').attr('transform', 'translate(100, 0)');
 
   const xScale = d3
     .scaleBand()
@@ -25,7 +25,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
 
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data.map((d) => d.active))])
+    .domain([0, d3.max(data.map((d) => d.active)) + 100])
     .range([height, 0]);
 
   g.append('g')
@@ -96,6 +96,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
 };
 
 const drawSelect = function (data) {
+  console.log(data);
   const select = document.querySelector('#selector');
   const options = data.map((state) => {
     let value = `"${state.state}"`;

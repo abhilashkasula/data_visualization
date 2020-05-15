@@ -12,22 +12,25 @@
 
       #header {
         color: black;
-        display: inline-block;
         font-weight: 900;
         font-size: 2em;
         font-family: sans-serif;
-        transform: translate(140%, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       #selector {
-        transform: translate(290%, 20%);
+        margin-top: 1%;
       }
     </style>
     <script src="index.js"></script>
   </head>
   <body>
-    <div id="header"><span id="state-name">Telangana</span> Covid Tracker</div>
-    <select id="selector"></select>
+    <div id="header">
+      <div><span id="state-name">Telangana</span> Covid Tracker</div>
+      <select id="selector"></select>
+    </div>
     <div id="graph"></div>
   </body>
 </html>
