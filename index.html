@@ -10,18 +10,12 @@
         fill: cornflowerblue;
       }
 
-      #header {
-        color: black;
-        font-weight: 900;
-        font-size: 2em;
+      h2 {
+        text-align: center;
         font-family: sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      #selector {
-        margin-top: 1%;
+        font-size: 1.5em;
+        margin: 0;
+        margin-bottom: 10px;
       }
 
       .line {
@@ -29,14 +23,17 @@
         stroke: lightgrey;
         stroke-width: 1px;
       }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
     </style>
     <script src="index.js"></script>
   </head>
   <body>
-    <div id="header">
-      <div><span id="state-name">Telangana</span> Covid Tracker</div>
-      <select id="selector"></select>
-    </div>
+    <h2><span id="state-name">Telangana</span> Covid Tracker</h2>
+    <select id="selector"></select>
     <div id="graph"></div>
   </body>
 </html>

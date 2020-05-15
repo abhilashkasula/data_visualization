@@ -10,8 +10,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
   const svg = d3
     .select('#graph')
     .append('svg')
-    .attr('height', height + 200)
-    .attr('width', width + 200);
+    .attr('viewBox', `0 0 ${width + 200} ${height + 200}`);
 
   const data = parse(statesData, state);
 
