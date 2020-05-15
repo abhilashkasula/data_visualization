@@ -83,7 +83,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .text((d) => d.active)
     .attr('text-anchor', 'middle')
     .attr('x', (d) => xScale(d.district) + xScale.bandwidth() / 2)
-    .attr('y', (d) => yScale(d.active) - 1)
+    .attr('y', (d) => yScale(d.active) - 2)
     .attr('font-size', 12)
     .attr('font-weight', '100')
     .attr('fill', 'black')
