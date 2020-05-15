@@ -19,7 +19,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
 
   const xScale = d3
     .scaleBand()
-    .domain(data.map((d) => `${d.district} (${d.active})`))
+    .domain(data.map((d) => d.district))
     .range([0, width - 100])
     .padding(0.1);
 
@@ -59,10 +59,21 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .enter()
     .append('rect')
     .attr('class', 'bar')
-    .attr('x', (d) => xScale(`${d.district} (${d.active})`))
+    .attr('x', (d) => xScale(d.district))
     .attr('y', (d) => yScale(d.active))
     .attr('width', xScale.bandwidth())
     .attr('height', (d) => height - yScale(d.active));
+
+  g.selectAll('.value')
+    .data(data)
+    .enter()
+    .append('text')
+    .text((d) => d.active)
+    .attr('text-anchor', 'middle')
+    .attr('x', (d) => xScale(d.district) + 14)
+    .attr('y', (d) => yScale(d.active) - 1)
+    .attr('font-size', 13)
+    .attr('stroke', 'black');
 
   g.append('text')
     .attr('x', width - 100)
