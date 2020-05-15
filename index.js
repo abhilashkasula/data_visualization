@@ -12,7 +12,7 @@ const drawGraph = function (data) {
   const xScale = d3
     .scaleBand()
     .domain(data.map((d) => `${d.district} (${d.active})`))
-    .range([0, width])
+    .range([0, width - 100])
     .padding(0.1);
 
   const yScale = d3
@@ -27,7 +27,7 @@ const drawGraph = function (data) {
     .attr('x', -60)
     .attr('y', -60)
     .attr('stroke', 'black')
-    .text('Cases');
+    .text('Active Cases');
 
   const xAxis = g
     .append('g')
@@ -55,6 +55,36 @@ const drawGraph = function (data) {
     .attr('y', (d) => yScale(d.active))
     .attr('width', xScale.bandwidth())
     .attr('height', (d) => height - yScale(d.active));
+
+  g.append('text')
+    .attr('x', width - 100)
+    .attr('y', 10)
+    .attr('stroke', 'black')
+    .text(
+      `Total Active Cases: ${data.reduce((total, d) => total + d.active, 0)}`
+    );
+
+  g.append('text')
+    .attr('x', width - 100)
+    .attr('y', 30)
+    .attr('stroke', 'black')
+    .text(
+      `Total Confirmed Cases: ${data.reduce(
+        (total, d) => total + d.confirmed,
+        0
+      )}`
+    );
+
+  g.append('text')
+    .attr('x', width - 100)
+    .attr('y', 50)
+    .attr('stroke', 'black')
+    .text(
+      `Total Deceased Cases: ${data.reduce(
+        (total, d) => total + d.deceased,
+        0
+      )}`
+    );
 };
 
 const parse = (data) => {
