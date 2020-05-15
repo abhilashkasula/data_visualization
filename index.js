@@ -15,7 +15,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
 
   const data = parse(statesData, state);
 
-  const g = svg.append('g').attr('transform', 'translate(100, 0)');
+  const g = svg.append('g').attr('transform', 'translate(100, 10)');
 
   const xScale = d3
     .scaleBand()
