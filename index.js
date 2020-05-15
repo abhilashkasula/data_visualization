@@ -89,7 +89,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('font-family', 'sans-serif');
 
   g.append('text')
-    .attr('x', width - 100)
+    .attr('x', width - 95)
     .attr('y', 10)
     .attr('stroke', 'black')
     .text(
@@ -97,7 +97,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     );
 
   g.append('text')
-    .attr('x', width - 100)
+    .attr('x', width - 95)
     .attr('y', 30)
     .attr('stroke', 'black')
     .text(
@@ -108,7 +108,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     );
 
   g.append('text')
-    .attr('x', width - 100)
+    .attr('x', width - 95)
     .attr('y', 50)
     .attr('stroke', 'black')
     .text(
