@@ -18,11 +18,16 @@
         font-family: sans-serif;
         transform: translate(140%, 0);
       }
+
+      #selector {
+        transform: translate(290%, 20%);
+      }
     </style>
     <script src="index.js"></script>
   </head>
   <body>
-    <div id="header">Telangana Covid Tracker</div>
+    <div id="header"><span id="state-name">Telangana</span> Covid Tracker</div>
+    <select id="selector"></select>
     <div id="graph"></div>
   </body>
 </html>

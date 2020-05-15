@@ -1,11 +1,19 @@
-const drawGraph = function (data) {
+let data;
+
+const drawGraph = function (statesData, state = 'Telangana') {
   const height = 600;
   const width = 1200;
+
+  document.querySelector('#graph').innerHTML = '';
+  document.querySelector('#state-name').innerText = state;
+
   const svg = d3
     .select('#graph')
     .append('svg')
     .attr('height', height + 200)
     .attr('width', width + 200);
+
+  const data = parse(statesData, state);
 
   const g = svg.append('g').attr('transform', 'translate(100, 30)');
 
@@ -87,9 +95,32 @@ const drawGraph = function (data) {
     );
 };
 
-const parse = (data) => {
-  const state = data.find((d) => d.state === 'Telangana');
-  return state.districtData;
+const drawSelect = function (data) {
+  const select = document.querySelector('#selector');
+  const options = data.map((state) => {
+    let value = `"${state.state}"`;
+    if (value.match(/telangana/i)) {
+      value += ' selected';
+    }
+    return `<option value=${value}>${state.state}</option>`;
+  });
+  select.innerHTML = options.join('\n');
+  return data;
+};
+
+const parse = (data, state = 'Telangana') => {
+  console.log(data);
+  const stateData = data.find((d) => d.state === state);
+  return stateData.districtData;
+};
+
+const addListeners = function () {
+  const select = document.querySelector('#selector');
+  select.addEventListener('change', () => {
+    const val = select.options[select.selectedIndex].value;
+    console.log(val);
+    drawGraph(data, val.trim());
+  });
 };
 
 const main = function () {
@@ -97,8 +128,10 @@ const main = function () {
     method: 'GET',
   })
     .then((res) => res.json())
-    .then(parse)
+    .then(drawSelect)
+    .then((d) => (data = d))
     .then(drawGraph);
   setTimeout(main, 1800000);
+  addListeners();
 };
 window.onload = main;
