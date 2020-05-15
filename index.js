@@ -64,6 +64,16 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('x2', width - 100)
     .attr('y2', (d) => yScale(d));
 
+  g.selectAll('.y-line')
+    .data(data)
+    .enter()
+    .append('line')
+    .attr('class', 'line y-line')
+    .attr('x1', (d) => xScale(d.district) + xScale.bandwidth() / 2)
+    .attr('y1', 0)
+    .attr('x2', (d) => xScale(d.district) + xScale.bandwidth() / 2)
+    .attr('y2', height);
+
   g.selectAll('.bar')
     .data(data)
     .enter()
