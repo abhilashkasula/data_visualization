@@ -95,9 +95,9 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('x', (d) => xScale(d.district) + xScale.bandwidth() / 2)
     .attr('y', (d) => yScale(d.active) - 2)
     .attr('font-size', 12)
-    .attr('font-family', 'sans-serif')
-    .att('fill', 'currentColor')
-    .attr('font-weight', 100);
+    .attr('fill', 'currentColor')
+    .attr('font-weight', 100)
+    .attr('font-family', 'sans-serif');
 
   const texts = [
     'Total Active Cases',
