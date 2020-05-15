@@ -95,8 +95,9 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('x', (d) => xScale(d.district) + xScale.bandwidth() / 2)
     .attr('y', (d) => yScale(d.active) - 2)
     .attr('font-size', 12)
-    .attr('font-weight', 100)
-    .attr('font-family', 'sans-serif');
+    .attr('font-family', 'sans-serif')
+    .att('fill', 'currentColor')
+    .attr('font-weight', 100);
 
   const texts = [
     'Total Active Cases',
@@ -116,13 +117,17 @@ const drawGraph = function (statesData, state = 'Telangana') {
     [0, 0, 0, 0]
   );
 
-  g.selectAll('.info')
+  g.append('g')
+    .attr('transform', 'translate(0, 10)')
+    .selectAll('.info')
     .data(texts)
     .enter()
     .append('text')
     .attr('x', width - 95)
     .attr('y', (d, i) => i * 20 + 10)
     .attr('stroke', 'black')
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', '0.8em')
     .text((d, i) => `${d}: ${values[i]}`);
 };
 
