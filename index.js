@@ -102,6 +102,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     'Total Active Cases',
     'Total Confirmed Cases',
     'Total Deceased Cases',
+    'Total Recovered Cases',
   ];
 
   const values = data.reduce(
@@ -109,9 +110,10 @@ const drawGraph = function (statesData, state = 'Telangana') {
       val[0] += d.active;
       val[1] += d.confirmed;
       val[2] += d.deceased;
+      val[3] += d.recovered;
       return val;
     },
-    [0, 0, 0]
+    [0, 0, 0, 0]
   );
 
   g.selectAll('.info')
