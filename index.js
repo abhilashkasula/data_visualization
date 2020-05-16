@@ -1,6 +1,20 @@
-let data;
+const sortByAscend = (a, b) => a.active < b.active ? 1 : a.active > b.active ? -1 : 0;
 
-const drawGraph = function (statesData, state = 'Telangana') {
+const colors = {
+  'Red': 'rgb(239, 74, 60)',
+  'Orange': 'rgb(244, 141, 63)',
+  'Green' : 'rgb(107, 204, 89)',
+  'cornflowerblue': 'cornflowerblue',
+  'Unknown': 'cornflowerblue'
+};
+
+const getColor = function(dist, zones) {
+  console.log(zones)
+  const color = zones.find(zone => zone.district == dist)?.zone || 'cornflowerblue';
+  return colors[color];
+};
+
+const drawGraph = function (statesData, zones, state = 'Telangana') {
   const height = 600;
   const width = 1200;
 
@@ -12,7 +26,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .append('svg')
     .attr('viewBox', `0 0 ${width + 200} ${height + 200}`);
 
-  const data = parse(statesData, state).sort((a, b) => a.active < b.active ? 1 : a.active > b.active ? -1 : 0);
+  const data = parse(statesData, state).sort(sortByAscend);
 
   const g = svg.append('g').attr('transform', 'translate(100, 10)');
 
@@ -81,7 +95,9 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('x', (d) => xScale(d.district))
     .attr('y', (d) => yScale(d.active))
     .attr('width', xScale.bandwidth())
-    .attr('height', (d) => height - yScale(d.active));
+    .attr('height', (d) => height - yScale(d.active))
+    // .attr('stroke', d => getColor(d.district, zones))
+    .attr('fill', d => getColor(d.district, zones));
 
   g.selectAll('.value')
     .data(data)
@@ -126,6 +142,29 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .attr('font-family', 'sans-serif')
     .attr('font-size', '0.8em')
     .text((d, i) => `${d}: ${values[i]}`);
+
+  const info = [ 'Red', 'Orange', 'Green', 'Unknown' ];
+
+  const zonesInfo = g.selectAll('.zone-info')
+    .data(info)
+    .enter()
+    .append('g')
+    .attr('transform', `translate(${width - 100},100)`);
+
+  zonesInfo.append('circle')
+    .attr('cx', 13)
+    .attr('cy', (d, i) => i * 20 + 20)
+    .attr('r', 7)
+    .attr('stroke', d => colors[d])
+    .attr('fill', d => colors[d]);
+
+  zonesInfo.append('text')
+    .attr('transform', 'translate(10, 4)')
+    .attr('x',13)
+    .attr('y', (d, i) => i * 20 + 20)
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', '0.8em')
+    .text(d => `${d} zone`);
 };
 
 const drawSelect = function (data) {
@@ -146,12 +185,20 @@ const parse = (data, state = 'Telangana') => {
   return stateData.districtData;
 };
 
-const addListeners = function () {
+const addListeners = function (data, zones) {
   const select = document.querySelector('#selector');
   select.addEventListener('change', () => {
     const val = select.options[select.selectedIndex].value;
-    drawGraph(data, val.trim());
+    drawGraph(data, zones, val.trim());
   });
+  const event = new Event('change');
+  select.dispatchEvent(event);
+};
+
+const loadZonesAndDrawGraphs = function(data) {
+  fetch('https://api.covid19india.org/zones.json')
+    .then(res => res.json())
+    .then(zones => addListeners(data, zones.zones))
 };
 
 const main = function () {
@@ -159,8 +206,7 @@ const main = function () {
     .then((res) => res.json())
     .then(drawSelect)
     .then((d) => (data = d))
-    .then(drawGraph);
+    .then(loadZonesAndDrawGraphs);
   setTimeout(main, 1800000);
-  addListeners();
 };
 window.onload = main;
