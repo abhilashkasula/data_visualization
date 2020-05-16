@@ -12,7 +12,7 @@ const drawGraph = function (statesData, state = 'Telangana') {
     .append('svg')
     .attr('viewBox', `0 0 ${width + 200} ${height + 200}`);
 
-  const data = parse(statesData, state);
+  const data = parse(statesData, state).sort((a, b) => a.active < b.active ? 1 : a.active > b.active ? -1 : 0);
 
   const g = svg.append('g').attr('transform', 'translate(100, 10)');
 
