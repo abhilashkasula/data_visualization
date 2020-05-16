@@ -9,7 +9,8 @@ const colors = {
 };
 
 const getColor = function(dist, zones) {
-  const color = zones.find(zone => zone.district == dist)?.zone || 'cornflowerblue';
+  const district = zones.find(zone => zone.district == dist);
+  const color = (district && district.zone) || 'cornflowerblue';
   return colors[color];
 };
 
@@ -95,7 +96,6 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('y', (d) => yScale(d.active))
     .attr('width', xScale.bandwidth())
     .attr('height', (d) => height - yScale(d.active))
-    // .attr('stroke', d => getColor(d.district, zones))
     .attr('fill', d => getColor(d.district, zones));
 
   g.selectAll('.value')
