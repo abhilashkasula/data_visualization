@@ -190,8 +190,7 @@ const addListeners = function (data, zones) {
     const val = select.options[select.selectedIndex].value;
     drawGraph(data, zones, val.trim());
   });
-  const event = new Event('change');
-  select.dispatchEvent(event);
+  drawGraph(data, zones, 'Telangana');
 };
 
 const loadZonesAndDrawGraphs = function(data) {
