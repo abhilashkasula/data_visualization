@@ -9,7 +9,6 @@ const colors = {
 };
 
 const getColor = function(dist, zones) {
-  console.log(zones)
   const color = zones.find(zone => zone.district == dist)?.zone || 'cornflowerblue';
   return colors[color];
 };
