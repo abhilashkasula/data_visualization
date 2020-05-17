@@ -4,7 +4,6 @@ const colors = {
   'Red': 'rgba(239, 74, 60,',
   'Orange': 'rgba(244, 141, 63,',
   'Green' : 'rgba(107, 204, 89,',
-  'cornflowerblue': 'rgba(100, 149, 237,',
   'Unknown': 'rgba(100, 149, 237,'
 };
 
@@ -15,7 +14,7 @@ const getDelta = function(data, c) {
 
 const getColor = function(dist, zones) {
   const district = zones.find(zone => zone.district == dist);
-  const color = (district && district.zone) || 'cornflowerblue';
+  const color = (district && district.zone) || 'Unknown';
   return colors[color];
 };
 
