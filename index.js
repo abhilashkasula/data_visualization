@@ -161,7 +161,8 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('cx', 13)
     .attr('cy', (d, i) => i * 20 + 20)
     .attr('r', 7)
-    .attr('stroke', d => colors[d] + '0.4)')
+    .attr('stroke', d => colors[d] + '1)')
+    .attr('stroke-width', 1.2)
     .attr('fill', d => colors[d] + '0.4)');
 
   zonesInfo.append('text')
