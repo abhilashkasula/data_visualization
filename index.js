@@ -32,7 +32,21 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
 
   const data = parse(statesData, state).sort(sortByAscend);
 
+  svg.append('rect')
+    .attr('fill', '#e3e3f3')
+    .attr('style', 'opacity: 0.5;')
+    .attr('width', width + 200)
+    .attr('height', height + 150)
+    .attr('stroke', '#acacf1')
+    .attr('rx', 5);
+
   const g = svg.append('g').attr('transform', 'translate(100, 10)');
+
+  g.append('rect')
+    .attr('width', width -100)
+    .attr('height', height)
+    .attr('stroke', 'lightgrey')
+    .attr('fill', 'none');
 
   const xScale = d3
     .scaleBand()
