@@ -172,7 +172,12 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('font-size', '0.8em')
     .text(d => `${d} zone`);
 
-  const  text = ['↑ indicates no. of cases','increased since yesterday'];
+  const  text = [
+    '↑ indicates no. of cases',
+    'increased since yesterday',
+    '( these new cases are',
+    'included in total cases',
+    ' as well )'];
 
   g.append('g')
     .attr('transform', `translate(${width - 95}, 200)`)
@@ -180,7 +185,7 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .data(text)
     .enter()
     .append('text')
-    .attr('x', (d, i) => i * 15)
+    .attr('x', (d, i) => i == 0? 0 :15)
     .attr('y', (d, i) => i * 20 + 10)
     .text(d => d)
     .attr('stroke', 'black');
