@@ -1,11 +1,11 @@
 const sortByAscend = (a, b) => a.active < b.active ? 1 : a.active > b.active ? -1 : 0;
 
 const colors = {
-  'Red': 'rgb(239, 74, 60)',
-  'Orange': 'rgb(244, 141, 63)',
-  'Green' : 'rgb(107, 204, 89)',
-  'cornflowerblue': 'cornflowerblue',
-  'Unknown': 'cornflowerblue'
+  'Red': 'rgba(239, 74, 60,',
+  'Orange': 'rgba(244, 141, 63,',
+  'Green' : 'rgba(107, 204, 89,',
+  'cornflowerblue': 'rgba(100, 149, 237,',
+  'Unknown': 'rgba(100, 149, 237,'
 };
 
 const getDelta = function(data, c) {
@@ -101,7 +101,9 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('y', (d) => yScale(d.active))
     .attr('width', xScale.bandwidth())
     .attr('height', (d) => height - yScale(d.active))
-    .attr('fill', d => getColor(d.district, zones));
+    .attr('stroke', d => getColor(d.district, zones) + '1')
+    .attr('stroke-width', 1.2)
+    .attr('fill', d => getColor(d.district, zones) + '0.4)');
 
   g.selectAll('.value')
     .data(data)
@@ -159,8 +161,8 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('cx', 13)
     .attr('cy', (d, i) => i * 20 + 20)
     .attr('r', 7)
-    .attr('stroke', d => colors[d])
-    .attr('fill', d => colors[d]);
+    .attr('stroke', d => colors[d] + '0.4)')
+    .attr('fill', d => colors[d] + '0.4)');
 
   zonesInfo.append('text')
     .attr('transform', 'translate(10, 4)')
