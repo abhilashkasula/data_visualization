@@ -134,8 +134,6 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     [0, 0, 0, 0]
   );
 
-  console.log(texts)
-
   g.append('g')
     .attr('transform', 'translate(0, 10)')
     .selectAll('.info')
