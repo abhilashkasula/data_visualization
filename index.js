@@ -8,6 +8,11 @@ const colors = {
   'Unknown': 'cornflowerblue'
 };
 
+const getDelta = function(data, c) {
+  const number = data.reduce((val, d) => val + d.delta[c], 0);
+  return number ? ` ↑${number}` : '';
+};
+
 const getColor = function(dist, zones) {
   const district = zones.find(zone => zone.district == dist);
   const color = (district && district.zone) || 'cornflowerblue';
@@ -112,10 +117,10 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('font-family', 'sans-serif');
 
   const texts = [
-    'Total Active Cases',
-    'Total Confirmed Cases',
-    'Total Deceased Cases',
-    'Total Recovered Cases',
+    {text: 'Total Active Cases', delta: ''},
+    {text: 'Total Confirmed Cases', delta: getDelta(data, 'confirmed')},
+    {text: 'Total Deceased Cases', delta: getDelta(data, 'deceased')},
+    {text: 'Total Recovered Cases', delta: getDelta(data, 'recovered')},
   ];
 
   const values = data.reduce(
@@ -129,6 +134,8 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     [0, 0, 0, 0]
   );
 
+  console.log(texts)
+
   g.append('g')
     .attr('transform', 'translate(0, 10)')
     .selectAll('.info')
@@ -140,7 +147,7 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('stroke', 'black')
     .attr('font-family', 'sans-serif')
     .attr('font-size', '0.8em')
-    .text((d, i) => `${d}: ${values[i]}`);
+    .text((d, i) => `${d.text}: ${values[i]} ${d.delta}`);
 
   const info = [ 'Red', 'Orange', 'Green', 'Unknown' ];
 
@@ -164,6 +171,19 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .attr('font-family', 'sans-serif')
     .attr('font-size', '0.8em')
     .text(d => `${d} zone`);
+
+  const  text = ['↑ indicates no. of cases','increased since yesterday'];
+
+  g.append('g')
+    .attr('transform', `translate(${width - 95}, 200)`)
+    .selectAll('text')
+    .data(text)
+    .enter()
+    .append('text')
+    .attr('x', (d, i) => i * 15)
+    .attr('y', (d, i) => i * 20 + 10)
+    .text(d => d)
+    .attr('stroke', 'black');
 };
 
 const drawSelect = function (data) {
