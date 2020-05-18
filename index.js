@@ -199,10 +199,11 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
     .data(text)
     .enter()
     .append('text')
-    .attr('x', (d, i) => i == 0? 0 :15)
+    .attr('x', (d, i) => i == 0 ? 4 : 19)
     .attr('y', (d, i) => i * 20 + 10)
     .text(d => d)
-    .attr('stroke', 'black');
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', '0.8em');
 };
 
 const drawSelect = function (data) {
