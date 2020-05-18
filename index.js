@@ -188,7 +188,7 @@ const drawGraph = function (statesData, zones, state = 'Telangana') {
 
   const  text = [
     '↑ indicates no. of cases',
-    'increased since yesterday',
+    'increased today',
     '( these new cases are',
     'included in total cases',
     ' as well )'];
