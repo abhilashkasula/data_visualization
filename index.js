@@ -234,13 +234,13 @@ const addListeners = function (data, zones) {
 };
 
 const loadZonesAndDrawGraphs = function(data) {
-  fetch('https://api.covid19india.org/zones.json')
+  fetch('https://data.covid19india.org/zones.json')
     .then(res => res.json())
     .then(zones => addListeners(data, zones.zones))
 };
 
 const main = function () {
-  fetch('https://api.covid19india.org/v2/state_district_wise.json')
+  fetch('https://data.covid19india.org/v2/state_district_wise.json')
     .then((res) => res.json())
     .then(drawSelect)
     .then((d) => (data = d))
